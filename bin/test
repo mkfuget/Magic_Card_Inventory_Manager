@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative "../app/lib/card_data_scraper.rb/"
+
+CardDataScraper.pull_set("Theros Beyond Death")
