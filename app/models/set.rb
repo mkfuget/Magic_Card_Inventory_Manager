@@ -1,4 +1,4 @@
-class Set < ActiveRecord::Base
+class CardSet < ActiveRecord::Base
     has_many :cards
 
 end
