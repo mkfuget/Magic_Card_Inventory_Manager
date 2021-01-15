@@ -5,6 +5,7 @@ class ApplicationController < Sinatra::Base
     require 'twilio-ruby'
     
     get "/" do
-        "Hello, world!"
+        @sets = CardSet.all
+        erb :index
     end
 end

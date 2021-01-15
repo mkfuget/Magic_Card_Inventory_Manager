@@ -1,8 +1,8 @@
 class CreateCardSets <ActiveRecord::Migration[5.1]
     def change 
-        create_table :sets do |t|
+        create_table :card_sets do |t|
             t.string :name
-            t.Date :release_date
+            t.datetime :release_date
             t.string :timestamp
         end
     end 

@@ -5,5 +5,12 @@
   </head>
   <body>
     <h1>Hello World</h1>
+    <% @sets.each do |set|%>
+      <h3><%=set.name%></h3>
+      <% set.cards.each do |card| %>
+        <span><%=card.name%></span><br>
+      <% end %>
+
+    <% end %>
   </body>
 </html>

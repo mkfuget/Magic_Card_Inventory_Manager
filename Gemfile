@@ -8,8 +8,8 @@ gem "rspec", "~> 3.0"
 gem "rake"  # so we can run Rake tasks
 gem "sinatra-activerecord"    # for Active Record models
 gem "bcrypt"
-gem 'sinatra'
 gem 'twilio-ruby'
 gem 'sqlite3'
 gem 'require_all'
-gem "sinatra-contrib"
+gem 'sinatra'
+gem 'sinatra-activerecord', :require => 'sinatra/activerecord'

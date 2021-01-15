@@ -24,7 +24,7 @@ class CardDataScraper
                 card_data_hash[:mana_cost] = mana_cost_string.strip
                 card_data_hash[:cmc] = card.css('span.convertedManaCost').text.strip
 
-                card_data_hash[:type] = card.css('span.typeLine').text.strip
+                card_data_hash[:card_type] = card.css('span.typeLine').text.strip
                 rules_text_data = card.css('div.rulesText')
                 rules_text_string = ""
                 rules_text_data.each do |element|

@@ -5,8 +5,8 @@ class CreateCards <ActiveRecord::Migration[5.1]
             t.string :mana_cost
             t.string :cmc
             t.string :rules_text
-            t.string :type
-            t.belongs_to :set
+            t.string :card_type
+            t.belongs_to :card_set
             t.string :timestamp
         end
     end 

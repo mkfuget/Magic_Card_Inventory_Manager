@@ -1,3 +1,3 @@
-require './app/controllers/application_controller'
+require './app/application_controller'
 
 run ApplicationController
