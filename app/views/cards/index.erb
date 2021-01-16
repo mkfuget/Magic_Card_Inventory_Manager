@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Style and javascript links -->
+  </head>
+  <body>
+    <% @sets.each do |set|%>
+      <h2><%=set.name%></h2>
+
+      <% set.cards.each do |card|%>
+        <span><a href = "/cards/<%=card.slug%>"><%=card.name%></a></span><br>
+      <% end %>  
+      <br>
+    <% end %>
+  </body>
+</html>

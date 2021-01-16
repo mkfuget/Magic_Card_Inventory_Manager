@@ -19,20 +19,23 @@ class CardDataScraper
                 mana_cost_data = card.css('span.manaCost')
                 mana_cost_string = ""
                 mana_cost_data.each do |element|
-                    mana_cost_string += "#{element.css('img').attribute("alt")}"
+                    element.css('img').each do |img_element|
+                        mana_cost_string += "(#{img_element.attribute("alt")})"
+                    end
                 end
                 card_data_hash[:mana_cost] = mana_cost_string.strip
                 card_data_hash[:cmc] = card.css('span.convertedManaCost').text.strip
 
                 card_data_hash[:card_type] = card.css('span.typeLine').text.strip
                 rules_text_data = card.css('div.rulesText')
-                rules_text_string = ""
+                rules_text_output = []
                 rules_text_data.each do |element|
                     element.css('p').each do |p_element|
-                        rules_text_string += normalize_rules_text(p_element.inner_html).strip
+                        rules_text_output.push("#{normalize_rules_text(p_element.inner_html).strip}")
+
                     end 
                 end
-                card_data_hash[:rules_text] = rules_text_string
+                card_data_hash[:rules_text] = rules_text_output
                 output_set_data.push(card_data_hash)
             end
             index+=1

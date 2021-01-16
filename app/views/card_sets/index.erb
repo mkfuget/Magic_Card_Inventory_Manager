@@ -5,11 +5,7 @@
   </head>
   <body>
     <% @sets.each do |set|%>
-      <h3><%=set.name%></h3>
-      <% set.cards.each do |card| %>
-        <span><%=card.name%></span><br>
-      <% end %>
-
+      <h2><a href = "/card_sets/<%=set.slug%>"><%=set.name%></h2>
     <% end %>
   </body>
 </html>

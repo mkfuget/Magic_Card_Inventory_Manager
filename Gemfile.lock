@@ -36,6 +36,8 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     rack (2.2.3)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (2.1.0)
       rack
     rake (12.3.3)
@@ -79,6 +81,7 @@ DEPENDENCIES
   bcrypt
   nokogiri (= 1.10.8)
   pry
+  rack-flash3
   rake
   require_all
   rspec (~> 3.0)

@@ -1,11 +1,7 @@
-require "./config/environment"
-
 class CardSetController < ApplicationController
-    require 'sinatra'
-    require 'twilio-ruby'
     
-    get "sets/" do
-        @sets = Set.all
-        erb :sets
+    get "/card_sets" do
+        @sets = CardSet.all
+        erb :'card_sets/index'
     end
 end

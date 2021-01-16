@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Style and javascript links -->
+  </head>
+  <body>
+    <h2><%="#{@card.name}        #{@card.mana_cost}"%></h2>
+    <%@card.rules_text.each do |line|%>
+        <p><%=line%></p>
+    <%end%>
+
+  </body>
+</html>
