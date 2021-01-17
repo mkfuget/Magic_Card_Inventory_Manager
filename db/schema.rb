@@ -15,9 +15,11 @@ ActiveRecord::Schema.define(version: 5) do
   create_table "card_instances", force: :cascade do |t|
     t.integer "user_id"
     t.integer "card_id"
+    t.integer "deck_id"
     t.integer "count"
     t.string "timestamp"
     t.index ["card_id"], name: "index_card_instances_on_card_id"
+    t.index ["deck_id"], name: "index_card_instances_on_deck_id"
     t.index ["user_id"], name: "index_card_instances_on_user_id"
   end
 

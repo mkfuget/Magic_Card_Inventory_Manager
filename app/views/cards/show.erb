@@ -5,6 +5,7 @@
   </head>
   <body>
     <h2><%="#{@card.name}        #{@card.mana_cost}"%></h2>
+    <h3><%="#{@card.card_type}"%></h3>
     <%@card.rules_text.each do |line|%>
         <p><%=line%></p>
     <%end%>

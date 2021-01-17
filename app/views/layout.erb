@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="<%= url('/styles.css') %>">
+  
+  <title>MTG Inventory</title>
+</head>
+  <body>
+    <ul class = "navbar">
+        <li><a href="/decks">Decks</a></li>
+        <li>
+          <div class="dropdown">
+            <button class="dropbtn">Collection</button>
+            <div class="dropdown-content">
+              <a href="/">View</a>
+              <a href="/">Add Card</a>
+              <a href="/">Edit</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="/card_sets">Standard Sets</a></li>
+        <li><a href="/cards">View All Cards</a></li>
+        <li style = "float:right"><a href="/logout" >Logout</a></li>
+
+    </ul>
+
+    <%= yield %>
+  </body>
+</html>

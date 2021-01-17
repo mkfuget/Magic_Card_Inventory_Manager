@@ -1,0 +1,12 @@
+<h2><a href = "/card_instances/new">Add Card to Your Collection</a></h2>
+<h3>Collection</h2>
+<table class = "cards_table">
+    <th>Card</th>
+    <th>Count</th>
+
+    <% @user.card_instances.each do |card_instance| %>
+    <tr>
+        <td><%=card_instance.card.name%></td>
+        <td><%=card_instance.count%></td>
+    </tr>
+<%end%>
