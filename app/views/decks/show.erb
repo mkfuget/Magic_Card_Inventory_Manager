@@ -1,0 +1,11 @@
+<h3><%=@deck.name%></h2>
+<table class = "deck_table">
+    <th>Card</th>
+    <th>Count</th>
+
+    <% @deck.card_instances.each do |card_instance| %>
+    <tr>
+        <td><%=card_instance.card.name%></td>
+        <td><%=card_instance.count%></td>
+    </tr>
+<%end%>

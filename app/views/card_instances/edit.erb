@@ -1,0 +1,23 @@
+<h2>Edit Your Collection</h2>
+<form action = '/card_instances' method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+
+    <table class = "cards_table">
+        <th>Card</th>
+        <th>Count</th>
+        <% @user.card_instances.each do |card_instance| %>
+        <tr>
+            <td><%=card_instance.card.name%></td>
+            <td><input 
+                type="text" 
+                name="count[<%=card_instance.id%>][]" 
+                id = "Name" 
+                value = "<%=card_instance.count%>">
+            </td>
+        </tr>
+    
+    <%end%>
+    </table>
+    <input type="submit" value="Save">
+
+</form>

@@ -7,23 +7,28 @@
 </head>
   <body>
     <ul class = "navbar">
-        <li><a href="/decks">Decks</a></li>
-        <li>
-          <div class="dropdown">
-            <button class="dropbtn">Collection</button>
-            <div class="dropdown-content">
-              <a href="/">View</a>
-              <a href="/">Add Card</a>
-              <a href="/">Edit</a>
-            </div>
-          </div>
-        </li>
-        <li><a href="/card_sets">Standard Sets</a></li>
-        <li><a href="/cards">View All Cards</a></li>
-        <li style = "float:right"><a href="/logout" >Logout</a></li>
-
+      <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Collection <i class="arrow down"></i></a>
+          <div class="dropdown-content">
+            <a href="/card_instances">View Cards</a>
+            <a href="/card_instances/new">Add Card</a>
+            <a href="/card_instances/edit">Edit Cards</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Decks <i class="arrow down"></i></a>
+        <div class="dropdown-content">
+          <a href="/decks">View Decks</a>
+          <a href="/decks/new">Add Deck</a>
+          <a href="/decks/edit">Edit Decks</a>
+        </div>
+      </li>
+      <li><a href="/card_sets">Standard Sets</a></li>
+      <li><a href="/cards">View All Cards</a></li>
+      <li style = "float:right"><a href="/logout" >Logout</a></li>
     </ul>
-
-    <%= yield %>
+    <div class = "content-wrapper">
+      <%= yield %>
+    </div>
   </body>
 </html>

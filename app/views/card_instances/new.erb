@@ -6,5 +6,12 @@
   <input type="text" name="count" id = "Count">
   <br>
   <input type="submit" value="Create Card Instance">
+  <br>
+  <div class = "failure">
+    <% if flash.has?(:message) %>
+      <%= flash[:message] %>
+    <% end %>
+  </div>
+
 </form>
 

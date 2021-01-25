@@ -1,0 +1,42 @@
+<h2>Add a card</h2>
+<form action='/decks/<%=@deck.slug%>/add_card' method="post" class = "new_card_form">
+  <label>Name:</label>
+  <input type="text" name="name" id = "Name">
+  <br>
+  <label>Count:</label>
+  <input type="text" name="count" id = "Count">
+  <br>
+  <input type="submit" value="Add Card">
+  <br>
+  <div class = "failure">
+    <% if flash.has?(:message) %>
+      <%= flash[:message] %>
+    <% end %>
+  </div>
+</form>
+
+
+<h2>Edit Deck</h2>
+<form action = '/decks/<%=@deck.slug%>' method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <label>Name:</label>
+    <input type="text" name="name" id = "Name" value = "<%=@deck.name%>">  
+    <table class = "deck_table">
+        <th>Card</th>
+        <th>Count</th>
+        <% @deck.card_instances.each do |card_instance| %>
+        <tr>
+            <td><%=card_instance.card.name%></td>
+            <td><input 
+                type="text" 
+                name="count[<%=card_instance.id%>][]" 
+                id = "Name" 
+                value = "<%=card_instance.count%>">
+            </td>
+        </tr>
+    
+    <%end%>
+    </table>
+    <input type="submit" value="Save">
+
+</form>

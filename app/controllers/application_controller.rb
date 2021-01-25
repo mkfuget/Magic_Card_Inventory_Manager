@@ -23,21 +23,24 @@ class ApplicationController < Sinatra::Base
     end
     
     post "/signup" do
-        user = User.new({:username => params[:username], :password => params[:password]})
-        if user.save
-          session[:user_id] = user.id
-          redirect "/card_instances"
+        user = User.find_by(:username => params[:username])
+        if user == nil 
+            user = User.new({:username => params[:username], :password => params[:password]})
+            user.save
+            session[:user_id] = user.id
+            redirect "/card_instances"
         else 
-          redirect "/failure"
+            flash[:message] = "Username already taken"
+            redirect "/user/signup"
         end
     end
 
-    get "/login" do
-        erb :login
-      end
+    get "/user/login" do
+        erb :'user/login'
+    end
     
     post "/login" do
-    user = User.find_by(:username => params[:username])
+        user = User.find_by(:username => params[:username])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
             redirect "/card_instances"
@@ -48,24 +51,60 @@ class ApplicationController < Sinatra::Base
     
 
     get '/card_instances' do
-        @user = User.find(session[:user_id])
+        checked_logged_in(session)
+        @user = Helpers.current_user(session)
         erb :'card_instances/index'
     end
     
     get '/card_instances/new' do
-        @user = User.find(session[:user_id])
+        checked_logged_in(session)
+        @user = Helpers.current_user(session)
         erb :'card_instances/new'
     end
 
     post '/card_instances' do 
         @card = Card.find{|x| x.name == params[:name]}
-        @card_instance = CardInstance.create(user: current_user, count: params[:count])
-        @card_instance.card = @card
+        if(@card == nil)
+            flash[:message] = "Addition failed card not found"
+        elsif(!(params[:count] =~ /\A[-+]?\d*\.?\d+\z/))
+            flash[:message] = "Please enter a count for the card"
+        else
+            @card_instance = Helpers.current_user(session).card_instances.find{|x| x.card.name == params[:name]}
+            if @card_instance == nil 
+                @card_instance = CardInstance.create(user: Helpers.current_user(session), count: params[:count].to_i)
+            else 
+                @card_instance.count += params[:count].to_i
+            end
+            @card_instance.card = @card
+            @card_instance.save 
+            @card.save
+            flash[:message] = "Card added to collection"
+        end
+        redirect "/card_instances/new"
+    end
 
-        @card_instance.save 
-        @card.save
+    post '/card_instances/edit' do 
+        redirect "/card_instances/new"
+    end
+
+    get '/card_instances/edit' do
+        checked_logged_in(session)
+        @user = Helpers.current_user(session)
+        erb :'card_instances/edit'
+    end
+
+    patch '/card_instances' do 
+        params[:count].each do |card_instance_id, count_value|
+            card_instance = CardInstance.find_by_id(card_instance_id.to_i);
+            card_instance.count = count_value[0].to_i
+            if(card_instance.count == 0)
+                card_instance.destroy
+            end
+            card_instance.save
+        end
         redirect "/card_instances"
     end
+
 
     get "/card_sets" do
         @sets = CardSet.all
@@ -88,13 +127,73 @@ class ApplicationController < Sinatra::Base
     end
 
     get "/decks" do 
-        if helpers.logged_in?
-            @decks = Deck.all 
-            erb :'/decks/index'
-        else
-            erb :'/login_needed'
-        end
+        checked_logged_in(session)
+        @user = Helpers.current_user(session)
+        erb :'/decks/index'
     end
+
+    get "/decks/new" do
+        checked_logged_in(session)
+        erb :'decks/new'
+    end
+
+    post "/decks" do 
+        @deck = Deck.create(name: params[:name], user: Helpers.current_user(session))
+        @deck.save 
+        redirect :"decks/#{@deck.slug}/edit/"
+    end
+
+    get "/decks/edit" do
+        checked_logged_in(session)
+        @user = Helpers.current_user(session)
+        erb :'decks/edit'
+    end
+
+    patch "/decks/:slug" do 
+        @deck = Deck.find_by_slug(params[:slug])
+        @deck.name = params[:name]
+        params[:count].each do |card_instance_id, count_value|
+            card_instance = CardInstance.find_by_id(card_instance_id.to_i);
+            card_instance.count = count_value[0].to_i
+            if(card_instance.count == 0)
+                card_instance.destroy
+            end
+            card_instance.save
+        end
+        @deck.save
+        redirect :"decks/edit/#{@deck.slug}"
+    end
+
+    get "/decks/:slug" do 
+        checked_logged_in(session)
+        @deck = Deck.find_by_slug(params[:slug])
+        erb :'decks/show'
+    end
+
+    get "/decks/:slug/edit" do 
+        checked_logged_in(session)
+        @deck = Deck.find_by_slug(params[:slug])
+        erb :'decks/edit_deck'
+
+    end
+
+    post "/decks/:slug/add_card" do 
+        @deck = Deck.find_by_slug(params[:slug])
+        @card = Card.find{|x| x.name == params[:name]}
+        if(@card == nil)
+            flash[:message] = "Addition failed card not found"
+        elsif(!(params[:count] =~ /\A[-+]?\d*\.?\d+\z/))
+            flash[:message] = "Please enter a count for the card"
+        else
+            @card_instance = CardInstance.create(count: params[:count].to_i, deck: @deck) 
+            @card_instance.card = @card
+            @card_instance.save 
+            @deck.save
+        end
+        redirect "/decks/#{@deck.slug}"
+    end
+
+
 
     get "/logout" do
         session.clear
@@ -105,15 +204,11 @@ class ApplicationController < Sinatra::Base
         scss :styles
     end
       
-    helpers do
-        def logged_in?
-          !!session[:user_id]
+    def checked_logged_in(session)
+        if !Helpers.is_logged_in?(session)
+            flash[:message] = "Please sign up or login to view that page"
+            redirect to('/')
         end
-    
-        def current_user
-          User.find(session[:user_id])
-        end
-    end
-    
+    end    
 
 end

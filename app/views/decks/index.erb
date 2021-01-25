@@ -1,0 +1,6 @@
+<h2><a href = "/decks/new">Add a Deck</a></h2>
+<h2>Your Decks</h2>
+<% @user.decks.each do |deck|%>
+    <span><a href = "/decks/<%=deck.slug%>"><%=deck.name%></a></span><br>
+    <br>
+<% end %>

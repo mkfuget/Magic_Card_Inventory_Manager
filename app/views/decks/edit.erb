@@ -1,0 +1,6 @@
+<h2>Your Decks</h2>
+<% @user.decks.each do |deck|%>
+    <h2><%=deck.name%></h2>
+    <span><a href = "/decks/<%=deck.slug%>/edit"><%=deck.name%></a></span><br>
+    <br>
+<% end %>
