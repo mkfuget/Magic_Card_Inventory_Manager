@@ -1,11 +1,18 @@
 <h2>Edit Your Decks</h2>
 <table>
 
-    <% @user.decks.each do |deck|%>        
-        <a href = "/decks/<%=deck.slug%>/edit"><%=deck.name%></a>
-        <form method="post" action="/decks/<%= deck.slug %>">
-            <input id="hidden" type="hidden" name="_method"  value="DELETE">
-            <input type="submit" value="x" class = "delete_button" name = <%= deck.slug %>>
-        </form>    
+    <% @user.decks_sorted.each do |deck|%>      
+        <tr>  
+            <td>
+                <a href = "/decks/<%=deck.slug%>/edit"><%=deck.name%></a>
+            <td>
+            <td>
+                <form method="post" action="/decks/<%= deck.slug %>">
+                    <input id="hidden" type="hidden" name="_method"  value="DELETE">
+                    <input type="submit" value="x" class="delete_button" name = <%= deck.slug %>>
+                </form>    
+            </td>
+        </tr>  
+
     <% end %>
 </table>

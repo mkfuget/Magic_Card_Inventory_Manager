@@ -5,7 +5,7 @@
     <table class = "cards_table">
         <th>Card</th>
         <th>Count</th>
-        <% @user.card_instances.each do |card_instance| %>
+        <% @user.card_instances_sorted.each do |card_instance| %>
         <tr>
             <td><%=card_instance.card.name%></td>
             <td><input 

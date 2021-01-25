@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
         erb :index
     end
 
-    get "/user/signup" do
+    get "/users/signup" do
         erb :'user/signup'
     end
     
@@ -35,8 +35,8 @@ class ApplicationController < Sinatra::Base
         end
     end
 
-    get "/user/login" do
-        erb :'user/login'
+    get "/users/login" do
+        erb :'users/login'
     end
     
     post "/login" do
