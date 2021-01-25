@@ -193,7 +193,11 @@ class ApplicationController < Sinatra::Base
         redirect "/decks/#{@deck.slug}"
     end
 
-
+    delete '/decks/:slug' do 
+        @deck = Deck.find_by_slug(params[:slug])
+        @deck.destroy
+        redirect "/decks/edit"
+    end
 
     get "/logout" do
         session.clear
