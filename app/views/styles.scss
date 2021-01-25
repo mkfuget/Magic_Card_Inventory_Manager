@@ -85,6 +85,17 @@ input[type=text]:focus,  input[type=password] {
   max-width: 960px;
   margin: auto;
 }
+
+.delete_button {
+  display:inline-block;
+
+}
+
+span a {
+  display:inline-block;
+
+}
+
 input[type=submit]{
   background: transparent;
   border-radius: 2px;
