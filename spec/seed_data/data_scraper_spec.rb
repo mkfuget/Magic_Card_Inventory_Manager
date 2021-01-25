@@ -1,4 +1,4 @@
-require_relative '../app/lib/card_data_scraper'
+require_relative '../../app/lib/card_data_scraper'
 include RSpec
 require 'rspec'
 

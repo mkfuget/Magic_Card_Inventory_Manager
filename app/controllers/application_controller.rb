@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
     end
 
     get "/users/signup" do
-        erb :'user/signup'
+        erb :'users/signup'
     end
     
     post "/signup" do
@@ -31,7 +31,7 @@ class ApplicationController < Sinatra::Base
             redirect "/card_instances"
         else 
             flash[:message] = "Username already taken"
-            redirect "/user/signup"
+            redirect "/users/signup"
         end
     end
 
