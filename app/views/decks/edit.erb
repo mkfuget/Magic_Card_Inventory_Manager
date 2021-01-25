@@ -1,6 +1,12 @@
-<h2>Your Decks</h2>
+<h2>Edit Your Decks</h2>
 <% @user.decks.each do |deck|%>
-    <h2><%=deck.name%></h2>
-    <span><a href = "/decks/<%=deck.slug%>/edit"><%=deck.name%></a></span><br>
-    <br>
+    <span>
+        <a href = "/decks/<%=deck.slug%>/edit"><%=deck.name%></a>
+        <form method="post" action="/decks/<%= deck.slug %>">
+            <input id="hidden" type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="x" name = <%= deck.slug %>>
+        </form>
+
+    </span>
+      <br>
 <% end %>
