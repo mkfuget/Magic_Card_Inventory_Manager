@@ -25,4 +25,20 @@ describe 'App' do
       end
   
     end
+
+    describe "logging in" do 
+        it "displays the users collection page if username and password is given" do
+            @user = User.create(:username => "Jack", :password => "Olantern")
+            visit '/login'
+            fill_in "username", :with => "Jack"
+            fill_in "password", :with => "Olantern"
+            click_button "Log In"
+            expect(page.current_path).to eq('/card_instances')
+            expect(page.status_code).to eq(200)
+            expect(page.body).to include("Collection")
+        end
+      
+      
+
+    end
 end  
