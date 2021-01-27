@@ -19,7 +19,7 @@ describe 'App' do
       end
 
       it "displays the Collection page if username and password is given" do
-        post '/signup', {"username" => "avi", "password" => "I<3Ruby"}
+        post '/signup', {"username" => "mkfuget", "password" => "pass821"}
         follow_redirect!
         expect(last_response.body).to include('Collection')
       end
@@ -37,6 +37,18 @@ describe 'App' do
             expect(page.status_code).to eq(200)
             expect(page.body).to include("Collection")
         end
+
+        it "Returns to the login page if the login fails" do
+          @user = User.create(:username => "Jack", :password => "Olantern")
+          visit '/users/login'
+          fill_in "username", :with => "Jack"
+          fill_in "password", :with => "Black"
+          click_button "Log In"
+          expect(page.current_path).to eq('/users/login')
+          expect(page.status_code).to eq(200)
+          expect(page.body).to include("Collection")
+      end
+
     end
     describe "User Actions" do 
       before(:each) do

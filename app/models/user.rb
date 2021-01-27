@@ -17,5 +17,9 @@ class User < ActiveRecord::Base
         self.decks.sort_by{|deck| deck.name}
     end
 
+    def get_card_counts(name)
+        user_card_instance = self.card_instances.find{|card_instance| card_instance.card.name == name}
+        user_card_instance != nil ? user_card_instance.count : 0
+    end
   
 end

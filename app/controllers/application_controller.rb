@@ -45,7 +45,8 @@ class ApplicationController < Sinatra::Base
             session[:user_id] = user.id
             redirect "/card_instances"
         else
-            redirect "/failure"
+            flash[:message] = "No matching username and password found"
+            redirect "/users/login"
         end
     end
     
@@ -166,6 +167,7 @@ class ApplicationController < Sinatra::Base
 
     get "/decks/:slug" do 
         checked_logged_in(session)
+        @user = Helpers.current_user(session)
         @deck = Deck.find_by_slug(params[:slug])
         erb :'decks/show'
     end
