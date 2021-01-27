@@ -117,6 +117,37 @@ describe 'App' do
 
           end
 
+          it "Editing to zero cards deletes the card_instance" do 
+            visit '/card_instances/new'
+            fill_in "name", :with => "Loathsome Chimera"
+            fill_in "count", :with => "4"
+            click_button "Create Card Instance"
+            visit '/card_instances/edit'
+            expect(page.current_path).to eq('/card_instances/edit')
+
+            fill_in "count_Loathsome Chimera", :with => "0"
+            click_button "edit_card_instances"
+
+
+            visit '/card_instances'
+
+            expect(page.body).to_not include("Loathsome Chimera")
+
+
+          end
+
+          it "Adding Deck to Collection" do 
+            visit '/decks/new'
+            fill_in "name", :with => "Esper Hero"
+            click_button "Create Deck"
+            visit '/decks'
+
+
+            expect(page.body).to include("Esper Hero")
+
+
+          end
+
 
     end
   end
