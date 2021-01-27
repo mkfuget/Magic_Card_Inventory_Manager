@@ -1,10 +1,10 @@
 <h2>Add a card</h2>
 <form action='/decks/<%=@deck.slug%>/add_card' method="post" class = "new_card_form">
   <label>Name:</label>
-  <input type="text" name="name" id = "Name">
+  <input type="text" name="name" id = "new_card_name">
   <br>
   <label>Count:</label>
-  <input type="text" name="count" id = "Count">
+  <input type="text" name="count" id = "new_card_count">
   <br>
   <input type="submit" value="Add Card">
   <br>
@@ -20,7 +20,7 @@
 <form action = '/decks/<%=@deck.slug%>' method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
     <label>Name:</label>
-    <input type="text" name="name" id = "Name" value = "<%=@deck.name%>">  
+    <input type="text" name="name" id = "edit_deck_name" value = "<%=@deck.name%>">  
     <table class = "deck_table">
         <th>Card</th>
         <th>Count</th>
@@ -30,13 +30,13 @@
             <td><input 
                 type="text" 
                 name="count[<%=card_instance.id%>][]" 
-                id = "Name" 
+                id = "edit_<%=card_instance.card.name%>_count" 
                 value = "<%=card_instance.count%>">
             </td>
         </tr>
     
     <%end%>
     </table>
-    <input type="submit" value="Save">
+    <input type="submit" id ="edit_deck_submit" value="Save">
 
 </form>

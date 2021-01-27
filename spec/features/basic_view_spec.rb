@@ -148,6 +148,81 @@ describe 'App' do
 
           end
 
+          it "Adding Card to Deck" do 
+            visit '/decks/new'
+            deck_name = "Esper Hero"
+            fill_in "name", :with => deck_name
+            click_button "Create Deck"
+            deck = Deck.find{|deck| deck.name == deck_name} 
+            visit "/decks/#{deck.slug}/edit"
+            fill_in "new_card_name", :with => "Brazen Borrower"
+            fill_in "new_card_count", :with => 4
+            click_button "Add Card"
+
+
+
+            expect(page.body).to include("Brazen Borrower")
+
+
+          end
+          it "Editing Deck" do 
+            visit '/decks/new'
+            deck_name = "Esper Hero"
+            fill_in "name", :with => deck_name
+            click_button "Create Deck"
+            deck = Deck.find{|deck| deck.name == deck_name} 
+            visit "/decks/#{deck.slug}/edit"
+            fill_in "new_card_name", :with => "Brazen Borrower"
+            fill_in "new_card_count", :with => 4
+            click_button "Add Card"
+            fill_in "new_card_name", :with => "Swamp"
+            fill_in "new_card_count", :with => 4
+            click_button "Add Card"
+            fill_in "edit_Swamp_count", :with => 2
+            fill_in "edit_deck_name", :with => "Esper Control"
+            click_button "edit_deck_submit"
+
+
+            expect(page.body).to include("Brazen Borrower")
+            expect(page.body).to include("Esper Control")
+            expect(page.body).to include("2")
+
+
+          end
+          it "Deleting Deck" do 
+            visit '/decks/new'
+            deck_name = "Esper Hero"
+            fill_in "name", :with => deck_name
+            click_button "Create Deck"
+            visit '/decks/new'
+            deck_name = "Esper Control"
+            fill_in "name", :with => deck_name
+            click_button "Create Deck"
+            visit '/decks/new'
+            deck_name = "Mono Red Aggro"
+            fill_in "name", :with => deck_name
+            click_button "Create Deck"
+
+            visit "/decks/edit"
+            expect(page.body).to include("Esper Hero")
+            expect(page.body).to include("Esper Control")
+            expect(page.body).to include("Mono Red Aggro")
+
+            click_button "delete_Mono Red Aggro"
+
+
+            
+
+            expect(page.body).to include("Esper Hero")
+            expect(page.body).to include("Esper Control")
+            expect(page.body).to_not include("Mono Red Aggro")
+
+
+          end
+
+
+
+
 
     end
   end

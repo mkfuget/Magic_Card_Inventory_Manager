@@ -140,7 +140,7 @@ class ApplicationController < Sinatra::Base
     post "/decks" do 
         @deck = Deck.create(name: params[:name], user: Helpers.current_user(session))
         @deck.save 
-        redirect :"decks/#{@deck.slug}/edit/"
+        redirect :"decks/#{@deck.slug}/edit"
     end
 
     get "/decks/edit" do
@@ -161,7 +161,7 @@ class ApplicationController < Sinatra::Base
             card_instance.save
         end
         @deck.save
-        redirect :"decks/edit/#{@deck.slug}"
+        redirect :"decks/#{@deck.slug}/edit"
     end
 
     get "/decks/:slug" do 
@@ -190,12 +190,12 @@ class ApplicationController < Sinatra::Base
             @card_instance.save 
             @deck.save
         end
-        redirect "/decks/#{@deck.slug}"
+        redirect "/decks/#{@deck.slug}/edit"
     end
 
     delete '/decks/:slug' do 
         @deck = Deck.find_by_slug(params[:slug])
-        @deck.destroy
+        @deck.destroy_deck
         redirect "/decks/edit"
     end
 

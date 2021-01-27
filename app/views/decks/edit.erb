@@ -9,7 +9,7 @@
             <td>
                 <form method="post" action="/decks/<%= deck.slug %>">
                     <input id="hidden" type="hidden" name="_method"  value="DELETE">
-                    <input type="submit" value="x" class="delete_button" name = <%= deck.slug %>>
+                    <input type="submit" value="x" class="delete_button" id = "delete_<%=deck.name%>" name = <%= deck.slug %>>
                 </form>    
             </td>
         </tr>  

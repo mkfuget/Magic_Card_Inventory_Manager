@@ -8,4 +8,11 @@ class Deck < ActiveRecord::Base
     include Slugifiable::InstanceMethods
     extend Slugifiable::ClassMethods
   
+    def destroy_deck
+        self.card_instances.each do |card_instance|
+            card_instance.destroy
+        end
+        self.destroy
+    end
+
 end
