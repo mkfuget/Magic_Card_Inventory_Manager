@@ -78,6 +78,46 @@ describe 'App' do
 
           end
 
+          it "increases the count when a card is added that is already in the collection" do 
+            visit '/card_instances/new'
+            fill_in "name", :with => "Loathsome Chimera"
+            fill_in "count", :with => "4"
+            click_button "Create Card Instance"
+            fill_in "name", :with => "Loathsome Chimera"
+            fill_in "count", :with => "3"
+            click_button "Create Card Instance"
+
+            expect(page.current_path).to eq('/card_instances/new')
+
+            visit '/card_instances'
+
+            expect(page.body).to include("Loathsome Chimera")
+            expect(page.body).to include("7")
+
+
+          end
+
+          it "Allows the user to edit card instances" do 
+            visit '/card_instances/new'
+            fill_in "name", :with => "Loathsome Chimera"
+            fill_in "count", :with => "4"
+            click_button "Create Card Instance"
+            visit '/card_instances/edit'
+            expect(page.current_path).to eq('/card_instances/edit')
+
+            fill_in "count_Loathsome Chimera", :with => "3"
+            click_button "edit_card_instances"
+
+
+            visit '/card_instances'
+
+            expect(page.body).to include("Loathsome Chimera")
+            expect(page.body).to include("3")
+
+
+          end
+
+
     end
   end
 

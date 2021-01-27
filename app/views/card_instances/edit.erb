@@ -11,13 +11,13 @@
             <td><input 
                 type="text" 
                 name="count[<%=card_instance.id%>][]" 
-                id = "Name" 
+                id = "count_<%=card_instance.card.name%>" 
                 value = "<%=card_instance.count%>">
             </td>
         </tr>
     
     <%end%>
     </table>
-    <input type="submit" value="Save">
+    <input type="submit" id = "edit_card_instances" value="Save">
 
 </form>
