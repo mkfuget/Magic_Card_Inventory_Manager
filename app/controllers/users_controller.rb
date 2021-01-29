@@ -1,22 +1,4 @@
-require "./config/environment"
-require 'rack-flash'
-
-class ApplicationController < Sinatra::Base
-    use Rack::Flash
-  
-    register Sinatra::ActiveRecordExtension
-
-    configure do
-        set :views, "app/views"
-        enable :sessions
-        set :session_secret, "password_security"
-
-    end
-      
-    get "/" do
-        erb :index
-    end
-
+class UsersController < ApplicationController
     get "/users/signup" do
         erb :'users/signup'
     end
@@ -54,16 +36,5 @@ class ApplicationController < Sinatra::Base
         session.clear
         redirect "/"
     end
-    
-    get '/styles.css' do 
-        scss :styles
-    end
-      
-    def checked_logged_in(session)
-        if !Helpers.is_logged_in?(session)
-            flash[:message] = "Please sign up or login to view that page"
-            redirect to('/')
-        end
-    end    
 
 end

@@ -52,9 +52,8 @@ describe 'App' do
     end
     describe "User Actions" do 
       before(:each) do
-        CardInstance.destroy_all
-        Deck.destroy_all
-        User.destroy_all  
+        @user = User.find{|user| user.username == "Jack"}
+        @user.delete_user
         @user = User.create(:username => "Jack", :password => "Olantern")
         visit '/users/login'
         fill_in "username", :with => "Jack"

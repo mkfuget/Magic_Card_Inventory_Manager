@@ -21,5 +21,15 @@ class User < ActiveRecord::Base
         user_card_instance = self.card_instances.find{|card_instance| card_instance.card.name == name}
         user_card_instance != nil ? user_card_instance.count : 0
     end
+
+    def delete_user
+        self.decks.each do |deck|
+          deck.destroy_deck
+        end
+        self.card_instances.each do |card_instance|
+            card_instance.destroy 
+        end
+        self.destroy
+    end
   
 end

@@ -92,7 +92,25 @@ input[type=submit].delete_button {
   color: black;
   
 }
+.cards-table, .decks-table {
+  width: 100%
+}
 
+table {
+  width: 75%
+
+}
+th {
+  font-size:24px;
+}
+td {
+  height: 40px;
+}
+td, th {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+
+}
 input[type=submit].delete_button:hover {
   cursor: pointer;
 }
