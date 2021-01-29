@@ -42,7 +42,7 @@ class CardDataScraper
             if(index>=page_numbers)
                 break
             end
-
+            puts   "page finished"
         end
         output_set_data
     end
@@ -61,4 +61,12 @@ class CardDataScraper
         "\"#{name.split(" ").join("%20")}\""
     end
 
+    def self.reset_database
+        User.destroy_all
+        Deck.destroy_all
+        CardInstance.destroy_all
+        Card.destroy_all
+        CardSet.destroy_all
+    end
+    
 end

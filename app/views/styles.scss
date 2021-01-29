@@ -1,12 +1,17 @@
 body {
     background-color:#9A8F97;
 }
+.navbar {
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
 
+}
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  min-height: 48px;
   background-color: #333;
 }
 
